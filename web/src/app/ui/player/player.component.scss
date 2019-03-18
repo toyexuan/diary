@@ -1,0 +1,15 @@
+.player {
+    display: flex;
+    .icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+}
+
+.hide {
+    display: none;
+}

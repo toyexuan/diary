@@ -1,0 +1,16 @@
+<div class="player">
+    <span class="icon">
+      <fa-icon [icon]="volumeMuteIcon" [ngClass]="{ hide: !isMuted }"></fa-icon>
+      <fa-icon [icon]="volumeUpIcon" [ngClass]="{ hide: isMuted }"></fa-icon>
+    </span>
+  <span class="icon">
+    <fa-icon [icon]="playIcon" [ngClass]="{ hide: isPlaying }"></fa-icon>
+    <fa-icon [icon]="pauseIcon" [ngClass]="{ hide: !isPlaying }"></fa-icon>
+  </span>
+  <span class="icon">
+    <fa-icon [icon]="forwardIcon" class="icon"></fa-icon
+  ></span>
+  <span class="icon">
+    <fa-icon [icon]="stepForwardIcon" class="icon"></fa-icon
+  ></span>
+</div>

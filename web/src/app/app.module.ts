@@ -1,14 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
+import { BackgroundComponent } from './ui/background/background.component';
+import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AppRoutingModule } from './app-routing.module';
+import { TabComponent } from './ui/tab/tab.component';
+import { PlayerComponent } from './ui/player/player.component';
+import { TypewritterComponent } from './ui/typewritter/typewritter.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BackgroundComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+    TabComponent,
+    PlayerComponent,
+    TypewritterComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

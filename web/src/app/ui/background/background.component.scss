@@ -1,0 +1,15 @@
+.bg {
+    position: relative;
+    .page-bg {
+        position: absolute;
+        opacity: 0.65;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.07);
+    }
+}

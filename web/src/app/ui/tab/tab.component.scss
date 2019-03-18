@@ -1,0 +1,44 @@
+.nav {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  transition: border-bottom-color 0.3s;
+  &:hover {
+    border-bottom-color: rgba(255, 255, 255, 0);
+  }
+  display: block;
+  width: 100%;
+  .nav-box {
+    display: flex;
+    .nav-item {
+      &:hover {
+        background: rgba(240, 240, 240, 0.15);
+        .avatar {
+          width: 48px;
+          opacity: 1;
+        }
+      }
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      border-radius: 4px;
+      background: rgba(240, 240, 240, 0);
+      transition: background 0.3s;
+      cursor: pointer;
+      .avatar {
+        width: 0;
+        opacity: 0;
+        height: 48px;
+        margin-right: 8px;
+        border-radius: 50%;
+        transition: width 0.3s, opacity 0.3s;
+        overflow: hidden;
+      }
+      .nav-item-title {
+        font-size: 16px;
+      }
+    }
+
+    .spacer {
+        flex: 1 1 auto;
+    }
+  }
+}
