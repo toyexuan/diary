@@ -1,3 +1,10 @@
-<p>
-  <app-player></app-player>
-</p>
+<div class="home">
+  <div class="title-section">
+    <h2>他给她的日记</h2>
+    <span class="spacer"></span>
+    <app-player></app-player>
+  </div>
+  <div class="body-section">
+    <app-scroller [content]="content" [fadingTime]="fadingTime" [maxHeight]="maxHeight" [variant]="scollerBodyVariant"></app-scroller>
+  </div>
+</div>

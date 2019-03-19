@@ -9,7 +9,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AppRoutingModule } from './app-routing.module';
 import { TabComponent } from './ui/tab/tab.component';
 import { PlayerComponent } from './ui/player/player.component';
-import { TypewritterComponent } from './ui/typewritter/typewritter.component';
+import { ScrollerComponent } from './ui/scroller/scroller.component';
+import { TyperComponent } from './ui/typer/typer.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TypewritterComponent } from './ui/typewritter/typewritter.component';
     PageNotFoundComponent,
     TabComponent,
     PlayerComponent,
-    TypewritterComponent
+    ScrollerComponent,
+    TyperComponent
   ],
   imports: [
     BrowserModule,

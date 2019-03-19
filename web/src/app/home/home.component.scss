@@ -1,0 +1,13 @@
+.home {
+    padding: 32px;
+    margin: auto;
+    .title-section {
+        display: flex;
+        margin-bottom: 16px;
+    }
+    .body-section {
+        padding: 0 24px;
+        line-height: 48px;
+        font-size: 24px;
+    }
+}

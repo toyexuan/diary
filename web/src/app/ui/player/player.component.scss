@@ -7,6 +7,11 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        transition: background 0.3s;
+        border-radius: 4px;
+        &:hover {
+            background: rgba(240, 240, 240, 0.15);
+        }
     }
 }
 
