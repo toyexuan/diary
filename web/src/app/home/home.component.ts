@@ -10,10 +10,10 @@ export class HomeComponent implements OnInit {
   public fadingTime = 2;
   public maxHeight = 20;
   public content = homeData.content;
-  public scollerBodyVariant = ['large'];
+  public scollerBodyVariant = ['medium'];
+  public audio = './assets/audio/dawn.ogg';
 
   constructor() {
-    console.log(this.content);
    }
 
   ngOnInit() {
