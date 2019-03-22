@@ -23,7 +23,8 @@ export class ListComponent implements OnInit {
     private dataService: DataService
   ) {}
 
-  private author: AuthorType;
+  public author: AuthorType;
+  public audio: string;
 
   ngOnInit() {
     this.route.params.subscribe(() => {

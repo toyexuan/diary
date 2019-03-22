@@ -14,6 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class DiaryComponent implements OnInit {
   public diary: DiaryStruct;
+  public audio: string;
 
   constructor(
     private diaryService: DiaryService,
