@@ -26,7 +26,11 @@ export class PlayerComponent implements OnInit {
     const context = new AudioContext();
     context.onstatechange = () => {
       if (context.state === 'running') {
-        this.audioController.nativeElement.volume = 0.1;
+        if (!this.audioController) {
+          return;
+        }
+
+        this.audioController.nativeElement.volume = 0.2;
         this.audioController.nativeElement.play().then(() => {
           this.isPlaying = true;
         });
@@ -36,7 +40,7 @@ export class PlayerComponent implements OnInit {
 
   onMuteClicked() {
     if (this.isMuted) {
-      this.audioController.nativeElement.volume = 0.1;
+      this.audioController.nativeElement.volume = 0.2;
     } else {
       this.audioController.nativeElement.volume = 0;
     }
@@ -47,6 +51,7 @@ export class PlayerComponent implements OnInit {
     if (this.isPlaying) {
       this.audioController.nativeElement.pause();
     } else {
+      this.audioController.nativeElement.volume = 0.2;
       this.audioController.nativeElement.play();
     }
     this.isPlaying = !this.isPlaying;

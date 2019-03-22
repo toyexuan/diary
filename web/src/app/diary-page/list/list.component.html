@@ -1,3 +1,15 @@
-<p>
-  list works!
-</p>
+<div class="list">
+  <div class="title-section">
+    <h2 *ngIf="author"> {{ author === 'he' ? '他' : '她' }}的日记</h2>
+    <span class="spacer"></span>
+    <app-player [audio]="audio" class="player" [ngClass]="{ hide: !audio }"></app-player>
+  </div>
+  <div class="list-body">
+    <li class="diary-list-item" *ngFor="let diary of diaryList; index as i" (click)="gotoDiary(diary.id)">
+      <span class="title">{{ diary.title }}</span>
+      <span class="date-comments">
+        {{ formatDate(diary.createdAt) + '  (' + diary.commentsNum + ')' }}
+      </span>
+    </li>
+  </div>
+</div>

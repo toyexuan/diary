@@ -3,41 +3,45 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HisDiaryModule } from './diary-page/his-diary/his-diary.module';
-import { HerDiaryModule } from './diary-page/her-diary/her-diary.module';
+import { DiaryComponent } from './diary-page/diary/diary.component';
+import { SharesModule } from './diary-page/shares/shares.module';
+import { ListComponent } from './diary-page/list/list.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/home',
-  },
-  {
-    path: 'he',
-    loadChildren: () => HisDiaryModule,
-  },
-  {
-    path: 'she',
-    loadChildren: () => HerDiaryModule,
+    redirectTo: '/home'
   },
   {
     path: 'home',
-    component: HomeComponent,
+    component: HomeComponent
+  },
+  {
+    path: '404',
+    component: PageNotFoundComponent
+  },
+  {
+    path: ':author',
+    component: ListComponent,
+  },
+  {
+    path: 'diary/:diaryId',
+    component: DiaryComponent
   },
   {
     path: '**',
-    component: PageNotFoundComponent,
+    component: PageNotFoundComponent
   }
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { enableTracing: true }),
-    HisDiaryModule,
-    HerDiaryModule,
+    SharesModule,
     CommonModule
   ],
   declarations: [],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

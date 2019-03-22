@@ -17,6 +17,7 @@ export class TyperComponent implements AfterContentInit {
   @Input() content: string[];
   @Input() typeSpeed: number;
   @Input() breakDelay: number;
+  @Input() theme: 'light' | 'dark';
   @ViewChild('typer') typer: ElementRef<HTMLDivElement>;
   @ViewChild('cursor') cursor: ElementRef<HTMLSpanElement>;
 

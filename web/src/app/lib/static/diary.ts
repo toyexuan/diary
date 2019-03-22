@@ -2,7 +2,7 @@ import { DiaryStruct } from '../types/diary.types';
 
 export const diary: DiaryStruct[] = [
   {
-    id: Date.now(),
+    id: '1234567',
     author: 'he',
     title: '这是第一条日记',
     comments: [

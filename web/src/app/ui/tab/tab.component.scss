@@ -15,6 +15,9 @@
           width: 48px;
           opacity: 1;
         }
+        .nav-item-title {
+          text-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
+        }
       }
       display: flex;
       align-items: center;
@@ -34,6 +37,7 @@
       }
       .nav-item-title {
         font-size: 16px;
+        transition: text-shadow 0.3s;
       }
       .logo {
         height: 32px;

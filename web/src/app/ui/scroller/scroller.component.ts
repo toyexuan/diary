@@ -32,15 +32,20 @@ export class ScrollerComponent implements AfterContentInit {
     for (let i = 0; i < this.content.length; i++) {
       if (this.maxHeight && this.maxHeight <= i) {
         const index = i - this.maxHeight;
-        this.scoller.nativeElement.children[
-          index
-        ].className = this.scoller.nativeElement.children[
-          index
-        ].className.replace('show', '');
+        const topLine = this.scoller.nativeElement.children[index] as HTMLSpanElement;
+        topLine.style.height = `${topLine.clientHeight}px`;
+        topLine.classList.remove('show');
+        await delayFor(300, () => {
+          topLine.classList.add('hide');
+        });
       }
+
       const line = this.content[i];
       const newLine: HTMLSpanElement = this.renderer.createElement('span');
       newLine.innerHTML = line;
+      if (line.length === 0) {
+        newLine.classList.add('gap');
+      }
       newLine.style.transition = `opacity ${this.fadingTime ||
         0.3}s, height ${this.fadingTime || 0.3}s`;
       this.scoller.nativeElement.appendChild(newLine);

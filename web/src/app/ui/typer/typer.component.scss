@@ -17,6 +17,9 @@
   background: black;
   display: inline-block;
   margin-left: 2px;
+  &.light {
+    background: rgba(240, 240, 240, 0.9);
+  }
 }
 
 @keyframes blink {

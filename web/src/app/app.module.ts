@@ -8,9 +8,8 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TabComponent } from './ui/tab/tab.component';
-import { PlayerComponent } from './ui/player/player.component';
 import { ScrollerComponent } from './ui/scroller/scroller.component';
-import { TyperComponent } from './ui/typer/typer.component';
+import { SharesModule } from './diary-page/shares/shares.module';
 
 @NgModule({
   declarations: [
@@ -19,14 +18,13 @@ import { TyperComponent } from './ui/typer/typer.component';
     HomeComponent,
     PageNotFoundComponent,
     TabComponent,
-    PlayerComponent,
-    ScrollerComponent,
-    TyperComponent
+    ScrollerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SharesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

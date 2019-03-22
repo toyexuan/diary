@@ -1,0 +1,38 @@
+.list {
+  .title-section {
+    display: flex;
+    margin-bottom: 16px;
+    .player {
+      display: flex;
+      align-items: center;
+      &.hide {
+        display: none;
+      }
+    }
+  }
+
+  .list-body {
+    padding: 32px;
+    .diary-list-item {
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      position: relative;
+      &:after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        content: '';
+        height: 1px;
+        width: 0;
+        transition: width 1s;
+        background: rgba(240, 240, 240, 0.9);
+      }
+
+      &:hover:after {
+        width: 100%;
+      }
+    }
+  }
+}

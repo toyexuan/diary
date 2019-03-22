@@ -1,10 +1,10 @@
 import {
   Component,
-  OnInit,
   Input,
   ViewChild,
   ElementRef,
-  HostListener
+  HostListener,
+  AfterViewInit
 } from '@angular/core';
 import { delayFor } from 'src/app/lib/sleep';
 
@@ -13,7 +13,7 @@ import { delayFor } from 'src/app/lib/sleep';
   templateUrl: './background.component.html',
   styleUrls: ['./background.component.scss']
 })
-export class BackgroundComponent implements OnInit {
+export class BackgroundComponent implements AfterViewInit {
   private bgImages: string[] = [];
   @Input() public changeTime: number;
   @Input() public infinite = false;
@@ -37,7 +37,7 @@ export class BackgroundComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.animate();
   }
 

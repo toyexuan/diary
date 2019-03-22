@@ -7,41 +7,41 @@
 .scoller-body ::ng-deep span {
   display: block;
   opacity: 0;
-  height: 0;
   overflow: hidden;
   width: 100%;
-}
-
-.scoller-body ::ng-deep span.show {
-  opacity: 1;
-  height: 24px;
+  &.show {
+    opacity: 1;
+  }
+  &.hide {
+    height: 0 !important;
+  }
 }
 
 .small {
   line-height: 16px;
   font-size: 12px;
-  & ::ng-deep span.show {
+  span.gap {
     height: 16px;
   }
 }
 .medium {
   line-height: 24px;
   font-size: 16px;
-  & ::ng-deep span.show {
+  span.gap {
     height: 24px;
   }
 }
 .large {
   line-height: 36px;
   font-size: 20px;
-  & ::ng-deep span.show {
+  span.gap {
     height: 36px;
   }
 }
 .extra {
   line-height: 48px;
   font-size: 24px;
-  & ::ng-deep span.show {
+  span.gap {
     height: 48px;
   }
 }
