@@ -1,4 +1,18 @@
-<div class="bg">
-    <div class="page-bg" #bgPicture></div>
-    <ng-content></ng-content>
+<div class="bg-box">
+  <div
+    class="bg shader"
+    [ngClass]="{ show: showBgImage || showBgImageTwo }"
+  ></div>
+  <img
+    class="bg"
+    [ngClass]="{ show: showBgImage }"
+    [src]="bgImageUrl"
+    #bgImage
+  />
+  <img
+    class="bg"
+    [ngClass]="{ show: showBgImageTwo }"
+    [src]="bgImageTwoUrl"
+    #bgImageTwo
+  />
 </div>

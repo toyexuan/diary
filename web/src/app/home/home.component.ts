@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { homeData } from '../static/home';
+import { homeData } from '../lib/static/home';
 
 @Component({
   selector: 'app-home',

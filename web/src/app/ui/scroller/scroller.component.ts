@@ -6,6 +6,7 @@ import {
   ElementRef,
   Renderer2
 } from '@angular/core';
+import { delayFor } from 'src/app/lib/sleep';
 
 type ScrollerFontVariant = 'small' | 'medium' | 'large' | 'extra';
 
@@ -44,17 +45,8 @@ export class ScrollerComponent implements AfterContentInit {
         0.3}s, height ${this.fadingTime || 0.3}s`;
       this.scoller.nativeElement.appendChild(newLine);
 
-      await this.delayFor((this.fadingTime || 0.3) * 1000);
+      await delayFor((this.fadingTime || 0.3) * 1000);
       this.renderer.addClass(newLine, 'show');
     }
-  }
-
-  private delayFor(delay: number, behavior: Function = () => {}) {
-    return new Promise(r => {
-      setTimeout(() => {
-        behavior();
-        r();
-      }, delay);
-    });
   }
 }

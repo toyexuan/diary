@@ -1,10 +1,13 @@
 <div class="nav">
   <span class="nav-box">
-      <li class="nav-item">
-        <img src="./assets/imgs/him.jpg" class="avatar" />
-        <span class="nav-item-title">他的日记</span>
-      </li>
-      <li class="nav-item">
+    <li class="nav-item" (click)="onClickHome()">
+      <img class="logo" src="./assets/imgs/home.png" />
+    </li>
+    <li class="nav-item" (click)="onClickHisDiary()">
+      <img src="./assets/imgs/him.jpg" class="avatar" />
+      <span class="nav-item-title">他的日记</span>
+    </li>
+      <li class="nav-item" (click)="onClickHerDiary()">
         <img src="./assets/imgs/her.jpg" class="avatar" />
         <span class="nav-item-title">她的日记</span>
       </li>

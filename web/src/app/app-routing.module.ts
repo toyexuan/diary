@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HisDiaryModule } from './his-diary/his-diary.module';
+import { HisDiaryModule } from './diary-page/his-diary/his-diary.module';
+import { HerDiaryModule } from './diary-page/her-diary/her-diary.module';
 
 const routes: Routes = [
   {
@@ -12,15 +13,19 @@ const routes: Routes = [
     redirectTo: '/home',
   },
   {
-    path: 'home',
-    component: HomeComponent,
-  },
-  {
     path: 'he',
     loadChildren: () => HisDiaryModule,
   },
   {
-    path: '*',
+    path: 'she',
+    loadChildren: () => HerDiaryModule,
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: '**',
     component: PageNotFoundComponent,
   }
 ];
@@ -29,6 +34,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, { enableTracing: true }),
     HisDiaryModule,
+    HerDiaryModule,
     CommonModule
   ],
   declarations: [],

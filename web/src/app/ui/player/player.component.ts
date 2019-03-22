@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { faPlay, faPause, faForward, faFastForward, faVolumeUp, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -6,7 +6,7 @@ import { faPlay, faPause, faForward, faFastForward, faVolumeUp, faVolumeMute } f
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss']
 })
-export class PlayerComponent implements AfterViewInit {
+export class PlayerComponent implements OnInit {
   @Input() audio: string;
   @ViewChild('audioController') audioController: ElementRef<HTMLAudioElement>;
 
@@ -17,14 +17,21 @@ export class PlayerComponent implements AfterViewInit {
   volumeUpIcon = faVolumeUp;
   volumeMuteIcon = faVolumeMute;
 
-  isPlaying = true;
+  isPlaying = false;
   isMuted = false;
 
   constructor() { }
 
-  ngAfterViewInit() {
-    this.audioController.nativeElement.volume = 0.1;
-    this.audioController.nativeElement.play();
+  ngOnInit () {
+    const context = new AudioContext();
+    context.onstatechange = () => {
+      if (context.state === 'running') {
+        this.audioController.nativeElement.volume = 0.1;
+        this.audioController.nativeElement.play().then(() => {
+          this.isPlaying = true;
+        });
+      }
+    };
   }
 
   onMuteClicked() {

@@ -6,6 +6,7 @@ import {
   ElementRef,
   Renderer2
 } from '@angular/core';
+import { delayFor } from 'src/app/lib/sleep';
 
 @Component({
   selector: 'app-typer',
@@ -31,7 +32,7 @@ export class TyperComponent implements AfterContentInit {
       this.typer.nativeElement.insertBefore(newLine, this.cursor.nativeElement);
 
       for (let i = 0; i < line.length; i++) {
-        await this.delayFor(this.typeSpeed || 80, () => {
+        await delayFor(this.typeSpeed || 80, () => {
           newLine.innerHTML += line.charAt(i);
         });
       }
@@ -42,20 +43,11 @@ export class TyperComponent implements AfterContentInit {
           (j + 1 < this.content.length && this.content[j + 1].length === 0)
             ? 0
             : this.breakDelay || 300;
-        await this.delayFor(breakTime, () => {
+        await delayFor(breakTime, () => {
           newLine.style.width = '100%';
         });
-        await this.delayFor(this.breakDelay || 300);
+        await delayFor(this.breakDelay || 300);
       }
     }
-  }
-
-  private delayFor(delay: number, behavior: Function = () => {}) {
-    return new Promise(r => {
-      setTimeout(() => {
-        behavior();
-        r();
-      }, delay);
-    });
   }
 }
