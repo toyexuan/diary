@@ -7,13 +7,13 @@ import {
   keyframes
 } from '@angular/animations';
 
-export const pageFading = trigger('fadeIn', [
+export const pageFading = trigger('pageFading', [
   transition('void => *', [
-    style({ opacity: 0, transfrom: 'scale(1.1)' }),
-    animate(3000, style({ opacity: 1, transfrom: 'scale(1)' }))
+    style({ opacity: 0, transform: 'scale(1.1)' }),
+    animate(1500, style({ opacity: 1, transform: 'scale(1)' }))
   ]),
   transition('* => void', [
-    style({ opacity: 1, transfrom: 'scale(1)' }),
-    animate(3000, style({ opacity: 0, transfrom: 'scale(1.1)' }))
+    style({ opacity: 1, transform: 'scale(1)' }),
+    animate(1500, style({ opacity: 0, transform: 'scale(1.1)' }))
   ])
 ]);

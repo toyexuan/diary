@@ -34,7 +34,7 @@ export class AppComponent implements AfterViewInit {
   }
   prepareRoute(outlet: RouterOutlet) {
     return (
-      outlet && outlet.activatedRouteData && outlet.activatedRouteData.state
+      outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation']
     );
   }
 }
