@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BackgroundComponent } from './ui/background/background.component';
@@ -10,7 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { TabComponent } from './ui/tab/tab.component';
 import { ScrollerComponent } from './ui/scroller/scroller.component';
 import { SharesModule } from './diary-page/shares/shares.module';
-
+import { ModalComponent } from './ui/modal/modal.component';
+import { EditorComponent } from './editor/editor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,13 +21,17 @@ import { SharesModule } from './diary-page/shares/shares.module';
     HomeComponent,
     PageNotFoundComponent,
     TabComponent,
-    ScrollerComponent
+    ScrollerComponent,
+    ModalComponent,
+    EditorComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    SharesModule
+    SharesModule,
+    FormsModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

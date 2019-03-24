@@ -6,6 +6,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { DiaryComponent } from './diary-page/diary/diary.component';
 import { SharesModule } from './diary-page/shares/shares.module';
 import { ListComponent } from './diary-page/list/list.component';
+import { EditorComponent } from './editor/editor.component';
 
 const routes: Routes = [
   {
@@ -18,12 +19,16 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'editor',
+    component: EditorComponent
+  },
+  {
     path: '404',
     component: PageNotFoundComponent
   },
   {
     path: ':author',
-    component: ListComponent,
+    component: ListComponent
   },
   {
     path: 'diary/:diaryId',

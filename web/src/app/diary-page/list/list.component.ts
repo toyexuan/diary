@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  faLock,
+} from '@fortawesome/free-solid-svg-icons';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { DiaryService } from 'src/app/services/diary.service';
 import { DiaryList, AuthorType } from 'src/app/lib/types/diary.types';
 import { UserProfile } from 'src/app/lib/types/user.types';
-import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { BROADCAST_DATA_TYPE } from 'src/app/lib/types/data.types';
-import { PageDefaultImageEnum } from 'src/app/lib/background-images';
+import { PageDefaultBackgroundImageEnum } from 'src/app/lib/images';
 
 @Component({
   selector: 'app-list',
@@ -15,6 +19,7 @@ import { PageDefaultImageEnum } from 'src/app/lib/background-images';
 export class ListComponent implements OnInit {
   public diaryList: DiaryList[] = [];
   public userProfile: UserProfile;
+  public faLockIcon = faLock;
 
   constructor(
     private diaryService: DiaryService,
@@ -37,11 +42,13 @@ export class ListComponent implements OnInit {
     if (this.author !== 'he' && this.author !== 'she') {
       return this.router.navigate(['404']);
     }
-    this.diaryList = await this.diaryService.getDiaryList(this.author);
+    this.diaryService.getDiaryList(this.author).subscribe(response => {
+      this.diaryList = response;
+    });
 
     this.dataService.sendMessage<string | string[]>({
       type: BROADCAST_DATA_TYPE.BG_IMAGGE_CHANGE,
-      payload: [PageDefaultImageEnum.list]
+      payload: [PageDefaultBackgroundImageEnum.list]
     });
   }
 

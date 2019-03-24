@@ -1,19 +1,22 @@
 <div class="nav">
   <span class="nav-box">
     <li class="nav-item" (click)="onClickHome()">
-      <img class="logo" src="./assets/imgs/home.png" />
+      <img class="logo" [src]="logo" />
     </li>
     <li class="nav-item" (click)="onClickHisDiary()">
-      <img src="./assets/imgs/him.jpg" class="avatar" />
+      <img [src]="hisAvatar" class="avatar" />
       <span class="nav-item-title">他的日记</span>
     </li>
       <li class="nav-item" (click)="onClickHerDiary()">
-        <img src="./assets/imgs/her.jpg" class="avatar" />
+        <img [src]="herAvatar" class="avatar" />
         <span class="nav-item-title">她的日记</span>
       </li>
       <span class="spacer"></span>
-      <li class="nav-item">
+      <li class="nav-item" (click)="onClickLock()" *ngIf="!user">
         <fa-icon [icon]="faLockIcon"></fa-icon>
+      </li>
+      <li class="nav-item" (click)="onClickEdit()" *ngIf="user">
+        <fa-icon [icon]="faEditIcon"></fa-icon>
       </li>
   </span>
 </div>

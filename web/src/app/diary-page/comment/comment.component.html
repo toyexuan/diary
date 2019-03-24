@@ -1,3 +1,35 @@
-<p>
-  comment works!
-</p>
+<div
+  class="comment"
+  [ngClass]="{ hide: manualDisplay, show: manualDisplay && show }"
+>
+  <h3 class="comment-title">TA说</h3>
+  <li
+    class="comment-item"
+    [ngClass]="{ reverse: author && comment.author === author.name }"
+    *ngFor="let comment of comments"
+  >
+    <div class="comment-author">
+      <img class="author-avatar" [src]="getAuthorImage(comment.author)" />
+      <span>{{ formatDate(comment.createdAt) }}</span>
+    </div>
+    <div class="comment-body">
+      <span *ngFor="let line of comment.content">{{ line }}</span>
+    </div>
+  </li>
+  <div class="new-comment" *ngIf="author">
+    <div class="new-comment-editor">
+      <div class="comment-author">
+        <img
+          class="author-avatar"
+          *ngIf="author"
+          [src]="getAuthorImage(author.name)"
+        />
+        <span>{{ formatDate() }}</span>
+      </div>
+      <textarea class="new-comment-body" [(ngModel)]="newComment"></textarea>
+    </div>
+    <div class="post-btn">
+      <app-button (click)="postComment()">发送</app-button>
+    </div>
+  </div>
+</div>

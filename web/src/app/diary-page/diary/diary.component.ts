@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DiaryStruct } from 'src/app/lib/types/diary.types';
 import { DataService } from 'src/app/services/data.service';
 import { BROADCAST_DATA_TYPE } from 'src/app/lib/types/data.types';
-import { PageDefaultImageEnum } from 'src/app/lib/background-images';
+import { PageDefaultBackgroundImageEnum } from 'src/app/lib/images';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,7 +14,6 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class DiaryComponent implements OnInit {
   public diary: DiaryStruct;
-  public audio: string;
 
   constructor(
     private diaryService: DiaryService,
@@ -30,21 +29,31 @@ export class DiaryComponent implements OnInit {
     });
   }
 
-  private async doOnInit() {
+  private doOnInit() {
     const diaryId = this.route.snapshot.paramMap.get('diaryId');
-    this.diary = await this.diaryService.getDiary(diaryId);
-    if (!this.diary) {
-      this.router.navigate(['404']);
-      return;
-    }
+    this.diaryService.getDiary(diaryId).subscribe(diary => {
+      this.diary = diary;
+      const images: string | string[] = diary.images
+        ? diary.images
+        : diary.author === 'he'
+        ? PageDefaultBackgroundImageEnum.hisDiary
+        : PageDefaultBackgroundImageEnum.herDiary;
+      this.dataService.sendMessage<string | string[]>({
+        type: BROADCAST_DATA_TYPE.BG_IMAGGE_CHANGE,
+        payload: images
+      });
 
-    this.dataService.sendMessage<string | string[]>({
-      type: BROADCAST_DATA_TYPE.BG_IMAGGE_CHANGE,
-      payload: [
-        (await this.userService.getUserProfile()).name === 'he'
-          ? PageDefaultImageEnum.hisDiary
-          : PageDefaultImageEnum.herDiary
-      ]
+      this.userService.getCachedUserProfile().subscribe(user => {
+        if (!this.diary || (this.diary.locked && !user)) {
+          this.router.navigate(['404']);
+          return;
+        }
+      });
+
+      this.dataService.sendMessage<string>({
+        type: BROADCAST_DATA_TYPE.BGM_CHANGE,
+        payload: this.diary.bgm || './assets/audio/dawn.ogg'
+      });
     });
   }
 

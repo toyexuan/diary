@@ -2,12 +2,9 @@
   .title-section {
     display: flex;
     margin-bottom: 16px;
-    .player {
-      display: flex;
-      align-items: center;
-      &.hide {
-        display: none;
-      }
+    .date {
+      font-size: 14px;
+      color: rgba(240, 240, 240, 0.7);
     }
   }
 

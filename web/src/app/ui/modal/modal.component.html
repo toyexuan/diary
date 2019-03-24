@@ -1,0 +1,27 @@
+<div class="modal" [ngClass]="{ show: show }" #modal>
+  <div class="shader" (click)="quit()"></div>
+  <div class="popout">
+    <div class="message">
+      <span class="birth" [ngClass]="{ show: showBirth }" #birthQ
+        >你的生日是？</span
+      >
+      <span class="password" [ngClass]="{ show: showPass }" #passQ
+        >你的日记密码是？</span
+      >
+    </div>
+    <div class="input">
+      <div class="input-box">
+        <input [(ngModel)]="birthday" [ngClass]="{ show: showBirth }" #birthA />
+        <input
+          [(ngModel)]="password"
+          type="password"
+          [ngClass]="{ show: showPass }"
+          #passA
+        />
+      </div>
+      <li class="enter-btn" (click)="onEnter()">
+        <fa-icon [icon]="arrowRight"></fa-icon>
+      </li>
+    </div>
+  </div>
+</div>

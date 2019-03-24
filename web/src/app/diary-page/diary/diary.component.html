@@ -2,16 +2,12 @@
   <div class="title-section" *ngIf="diary">
     <div>
       <h2>{{ diary.title }}</h2>
-      <span>{{ formatDate(diary.createdAt) }}</span>
+      <span class="date">{{ formatDate(diary.createdAt) }}</span>
     </div>
     <span class="spacer"></span>
-    <app-player
-      [audio]="audio"
-      class="player"
-      [ngClass]="{ hide: !audio }"
-    ></app-player>
   </div>
   <div class="diary-body" *ngIf="diary">
     <app-typer [content]="diary.content" theme="light"></app-typer>
   </div>
+  <app-comment *ngIf="diary" [comments]="diary.comments"></app-comment>
 </div>

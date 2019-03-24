@@ -6,7 +6,7 @@
   </div>
   <div class="list-body">
     <li class="diary-list-item" *ngFor="let diary of diaryList; index as i" (click)="gotoDiary(diary.id)">
-      <span class="title">{{ diary.title }}</span>
+      <span class="title">{{ diary.title }}<fa-icon *ngIf="diary.locked" [icon]="faLockIcon" class="lock-icon"></fa-icon></span>
       <span class="date-comments">
         {{ formatDate(diary.createdAt) + '  (' + diary.commentsNum + ')' }}
       </span>

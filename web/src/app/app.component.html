@@ -1,9 +1,16 @@
-<app-background [images]="backgroundImages" [viewAnimation]="bgViewAnimation"></app-background>
+<app-background
+  [images]="backgroundImages"
+  [viewAnimation]="bgViewAnimation"
+></app-background>
+<app-modal></app-modal>
 <div class="app-root" #rootBox>
   <div class="app-body">
     <app-tab></app-tab>
     <div class="blade">
-      <router-outlet></router-outlet>
+      <div class="page" [@pageFading]="prepareRoute(outlet)">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </div>
+      <app-player [audio]="audio" class="player"></app-player>
     </div>
   </div>
 </div>

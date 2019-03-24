@@ -1,0 +1,41 @@
+.editor {
+  padding: 32px;
+  input,
+  textarea {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(240, 240, 240, 0.9);
+    outline: none;
+    caret-color: rgba(240, 240, 240, 0.9);
+    color: rgba(240, 240, 240, 0.9);
+    width: 100%;
+    font-family: 'Microsoft YaHei', sans-serif;
+    transition: border 0.3s;
+    &:focus, &.hasInput {
+        border-color: rgba(240, 240, 240, 0);
+    }
+  }
+
+  .title-input {
+      margin: 0 16px;
+      input {
+          font-size: 20px;
+          font-weight: 600;
+      }
+  }
+  .content-input {
+      margin: 16px;
+      textarea {
+          font-size: 16px;
+      }
+  }
+
+  .submit-btn {
+      display: flex;
+      margin: 0 16px;
+      justify-content: flex-end;
+  }
+}
+::placeholder {
+    color: rgba(240, 240, 240, 0.9);
+}

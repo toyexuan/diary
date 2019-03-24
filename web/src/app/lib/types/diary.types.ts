@@ -1,7 +1,7 @@
 export type AuthorType = 'he' | 'she';
 
 export interface DiaryStruct {
-  id: string;
+  id?: string;
   author: AuthorType;
   title: string;
   content: string[];
@@ -9,11 +9,13 @@ export interface DiaryStruct {
   updatedAt?: Date;
   comments: DiaryCommentStruct[];
   images?: string[];
+  bgm?: string;
+  locked?: boolean;
 }
 
 export interface DiaryCommentStruct {
   author: AuthorType;
-  content: string;
+  content: string[];
   createdAt: Date;
 }
 
@@ -22,4 +24,5 @@ export interface DiaryList {
   title: string;
   createdAt: Date;
   commentsNum: number;
+  locked?: boolean;
 }

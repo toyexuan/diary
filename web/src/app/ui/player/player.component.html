@@ -3,7 +3,7 @@
       <fa-icon [icon]="volumeMuteIcon" [ngClass]="{ hide: !isMuted }"></fa-icon>
       <fa-icon [icon]="volumeUpIcon" [ngClass]="{ hide: isMuted }"></fa-icon>
     </span>
-  <span class="icon" (click)="onPlayClicked()">
+  <span class="icon" [ngClass]="{ disabled: !audio }" (click)="onPlayClicked()">
     <fa-icon [icon]="playIcon" [ngClass]="{ hide: isPlaying }"></fa-icon>
     <fa-icon [icon]="pauseIcon" [ngClass]="{ hide: !isPlaying }"></fa-icon>
   </span>

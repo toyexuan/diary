@@ -1,0 +1,24 @@
+<div class="editor">
+  <div class="title-input">
+    <input
+      [(ngModel)]="title"
+      class="title"
+      [ngClass]="{ hasInput: title }"
+      placeholder="日记标题"
+    />
+  </div>
+  <div class="content-input">
+    <textarea
+      [(ngModel)]="content"
+      class="content"
+      [ngClass]="{ hasInput: content }"
+      placeholder="正文"
+      (ngModelChange)="onContentChange()"
+      rows="5"
+      #contentController
+    ></textarea>
+  </div>
+  <div class="submit-btn">
+    <app-button (click)="onSubmit()">保存</app-button>
+  </div>
+</div>
