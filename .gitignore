@@ -5,6 +5,8 @@ dist/
 build/
 /tmp
 /out-tsc
+db/
+public/
 
 # dependencies
 node_modules/

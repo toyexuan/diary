@@ -1,6 +1,6 @@
 import { DiaryStruct } from '../types/diary.types';
 
-export const diary: DiaryStruct[] = [
+export const diaries: DiaryStruct[] = [
   {
     id: '1234567',
     author: 'he',

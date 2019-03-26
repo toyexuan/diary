@@ -16,10 +16,10 @@ export class UserService {
     this.headers.set('Jwt', localStorage.getItem('Jwt'));
   }
 
-  private readonly GET_USER_PROFILE_API = '/api/user-profile';
-  private readonly POST_USER_LOGIN = '/api/user-login';
-  private readonly POST_USER_UPDATE_PASSWORD = '/api/update-password';
-  private readonly POST_USER_CONFIRM_BIRTHDAY = '/api/confirm-birthday';
+  private readonly GET_USER_PROFILE_API = '/user/api/user-profile';
+  private readonly POST_USER_LOGIN = '/user/api/user-login';
+  private readonly POST_USER_UPDATE_PASSWORD = '/user/api/update-password';
+  private readonly POST_USER_CONFIRM_BIRTHDAY = '/user/api/confirm-birthday';
 
   private userProfile: Observable<UserProfile | undefined>;
 
@@ -30,13 +30,7 @@ export class UserService {
   public getUserProfile(): Observable<UserProfile | undefined> {
     switch (config.flavor) {
       case ServiceFlavor.LOCAL: {
-        // this.userProfile = of<UserProfile>({
-        //   name: 'he',
-        //   userId: 'mockId'
-        // });
-
-        // return this.userProfile;
-        return of(undefined);
+        return this.userProfile;
       }
       case ServiceFlavor.PROD: {
         return (this.userProfile = this.httpService
