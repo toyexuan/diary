@@ -1,12 +1,26 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
-import { faPlay, faPause, faForward, faFastForward, faVolumeUp, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
+import {
+  Component,
+  Input,
+  ViewChild,
+  ElementRef,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
+import {
+  faPlay,
+  faPause,
+  faForward,
+  faFastForward,
+  faVolumeUp,
+  faVolumeMute
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss']
 })
-export class PlayerComponent implements OnInit, OnChanges {
+export class PlayerComponent implements OnChanges {
   @Input() audio = '';
   @ViewChild('audioController') audioController: ElementRef<HTMLAudioElement>;
 
@@ -20,30 +34,17 @@ export class PlayerComponent implements OnInit, OnChanges {
   isPlaying = false;
   isMuted = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit () {
-    const context = new AudioContext();
-    context.onstatechange = () => {
-      if (context.state === 'running') {
-        if (!this.audioController) {
-          return;
-        }
-
-        this.audioController.nativeElement.volume = 0.2;
-        this.audioController.nativeElement.play().then(() => {
-          this.isPlaying = true;
-        });
-      }
-    };
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.audio.currentValue !== changes.audio.previousValue && this.audioController) {
+  async ngOnChanges(changes: SimpleChanges) {
+    if (
+      changes.audio.currentValue !== changes.audio.previousValue &&
+      this.audioController
+    ) {
       this.audioController.nativeElement.load();
-      this.audioController.nativeElement.play();
+      this.audioController.nativeElement.volume = 0.2;
+      await this.audioController.nativeElement.play();
       this.isPlaying = true;
-
     }
   }
 
@@ -56,7 +57,7 @@ export class PlayerComponent implements OnInit, OnChanges {
     this.isMuted = !this.isMuted;
   }
 
-  onPlayClicked() {
+  async onPlayClicked() {
     if (!this.audio) {
       return;
     }
@@ -65,7 +66,7 @@ export class PlayerComponent implements OnInit, OnChanges {
       this.audioController.nativeElement.pause();
     } else {
       this.audioController.nativeElement.volume = 0.2;
-      this.audioController.nativeElement.play();
+      await this.audioController.nativeElement.play();
     }
     this.isPlaying = !this.isPlaying;
   }
