@@ -7,7 +7,7 @@ import {
   Body,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
-import { AuthService } from 'src/shared/authentication/auth.service';
+import { AuthService } from '../shared/authentication/auth.service';
 import { UserService } from './user.service';
 
 @Controller('user/api')

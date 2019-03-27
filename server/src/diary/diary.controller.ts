@@ -21,7 +21,6 @@ export class DiaryController {
   @Post('get-diary')
   public async getDiry(@Body() body: { _id: string }) {
     const x = await this.diaryService.getDiary(body._id);
-    console.log(body._id, JSON.stringify(x, null, 2));
     return x;
   }
 
