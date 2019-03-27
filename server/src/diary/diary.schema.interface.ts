@@ -1,7 +1,8 @@
+import { Document } from 'mongoose';
+
 export type AuthorType = 'he' | 'she';
 
 export interface DiaryStruct {
-  _id?: string;
   author: AuthorType;
   title: string;
   content: string[];
@@ -19,10 +20,4 @@ export interface DiaryCommentStruct {
   createdAt: Date;
 }
 
-export interface DiaryList {
-  _id: string;
-  title: string;
-  createdAt: Date;
-  commentsNum: number;
-  locked?: boolean;
-}
+export interface DiaryInterface extends Document, DiaryStruct {}

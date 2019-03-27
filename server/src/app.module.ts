@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { UserController } from './user/user.controller';
 import { DiaryController } from './diary/diary.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -7,14 +7,24 @@ import { UserSchema } from './user/user.schema';
 import { AuthService } from './shared/authentication/auth.service';
 import { AuthModule } from './shared/authentication/auth.module';
 import { UserService } from './user/user.service';
+import { DiaryService } from './diary/diary.service';
+import { DiarySchema } from './diary/diary.schema';
+import { CacheMiddleware } from './shared/middlewares/cache.middleware';
 
 @Module({
   imports: [
     AuthModule,
     MongooseModule.forRoot(new CfgLoader(ServerEnvironment.DEV).load().DB.Url),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: 'Diary', schema: DiarySchema }]),
   ],
   controllers: [UserController, DiaryController],
-  providers: [UserService, AuthService],
+  providers: [UserService, AuthService, DiaryService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer
+      .apply(CacheMiddleware)
+      .forRoutes(UserController);
+  }
+}

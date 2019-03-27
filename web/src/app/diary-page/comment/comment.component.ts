@@ -14,9 +14,10 @@ export class CommentComponent implements OnInit {
   @Input() comments: DiaryCommentStruct[] = [];
   @Input() manualDisplay = false;
   @Input() show = false;
+  @Input() diaryId: string;
 
   public newComment: string;
-  public author: UserProfile;
+  public author: UserProfile | undefined;
 
   constructor(
     private userService: UserService,
@@ -25,7 +26,7 @@ export class CommentComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getCachedUserProfile().subscribe(userProfile => {
-      this.author = userProfile;
+      this.author = userProfile.userId ? userProfile : undefined;
     });
   }
 
@@ -38,6 +39,9 @@ export class CommentComponent implements OnInit {
   }
 
   formatDate(date: Date = new Date()) {
+    if (typeof date === 'string') {
+      date = new Date(date);
+    }
     return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
   }
 
@@ -47,7 +51,7 @@ export class CommentComponent implements OnInit {
       createdAt: new Date(),
       content: this.newComment.split('\n')
     };
-    this.diaryService.postComment(comment).subscribe(response => {
+    this.diaryService.postComment(comment, this.diaryId).subscribe(response => {
       if (response) {
         this.comments.push(comment);
       }

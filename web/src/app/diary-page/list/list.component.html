@@ -5,7 +5,7 @@
     <app-player [audio]="audio" class="player" [ngClass]="{ hide: !audio }"></app-player>
   </div>
   <div class="list-body">
-    <li class="diary-list-item" *ngFor="let diary of diaryList; index as i" (click)="gotoDiary(diary.id)">
+    <li class="diary-list-item" *ngFor="let diary of diaryList; index as i" (click)="gotoDiary(diary._id)">
       <span class="title">{{ diary.title }}<fa-icon *ngIf="diary.locked" [icon]="faLockIcon" class="lock-icon"></fa-icon></span>
       <span class="date-comments">
         {{ formatDate(diary.createdAt) + '  (' + diary.commentsNum + ')' }}

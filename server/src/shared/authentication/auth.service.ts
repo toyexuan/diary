@@ -14,8 +14,8 @@ export class AuthService {
   private readonly expiresIn = '30d';
 
   async createJwtToken(data) {
-    const token = jwt.sign(data, this.secretOrKey, {
-      expiresIn: this.expiresIn,
+    const token = jwt.sign({ data }, this.secretOrKey, {
+      expiresIn: '30d',
     });
     return {
       expires_in: this.expiresIn,
@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   async validateUserByJwt(signedUser: string): Promise<UserInterface> {
-    const dob = jwt.verify(signedUser, this.secretOrKey) as string;
+    const dob = (jwt.verify(signedUser, this.secretOrKey) as { data: string}).data;
     const user = await this.userModel.findOne({ dob }).exec();
     return user;
   }

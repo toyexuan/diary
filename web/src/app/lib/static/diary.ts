@@ -2,7 +2,7 @@ import { DiaryStruct } from '../types/diary.types';
 
 export const diaries: DiaryStruct[] = [
   {
-    id: '1234567',
+    _id: '1234567',
     author: 'he',
     title: '这是第一条日记',
     locked: true,
@@ -22,7 +22,7 @@ export const diaries: DiaryStruct[] = [
     createdAt: new Date()
   },
   {
-    id: '123427',
+    _id: '123427',
     author: 'he',
     title: '这是第2条日记',
     comments: [

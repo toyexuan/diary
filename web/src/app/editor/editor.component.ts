@@ -38,7 +38,7 @@ export class EditorComponent implements OnInit {
     });
 
     this.userService.getCachedUserProfile().subscribe(user => {
-      this.user = user;
+      this.user = user.userId ? user : undefined;
       if (!this.user) {
         this.router.navigate(['home']);
       }
@@ -68,7 +68,7 @@ export class EditorComponent implements OnInit {
         title: this.title,
         content: this.content.split('\n'),
         comments: [],
-        images: this.images,
+        bgImages: this.images,
         bgm: this.bgm,
         locked: this.locked
       })

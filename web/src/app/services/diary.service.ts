@@ -29,32 +29,36 @@ export class DiaryService {
           diaries
             .filter(d => d.author === author)
             .map(d => ({
-              id: d.id,
+              _id: d._id,
               title: d.title,
-              createdAt: d.createdAt,
+              createdAt: new Date(d.createdAt),
               commentsNum: d.comments.length,
               locked: d.locked
             }))
         );
       }
       case ServiceFlavor.PROD: {
-        return this.httpService.post(this.POST_GET_DIARY_LIST_API, { author }).pipe(
-          map(data => {
-            return data.json();
-          }),
-          catchError(error => throwError(`Error when get diary list: ${error}`))
-        );
+        return this.httpService
+          .post(this.POST_GET_DIARY_LIST_API, { author })
+          .pipe(
+            map(data => {
+              return data.json();
+            }),
+            catchError(error =>
+              throwError(`Error when get diary list: ${error}`)
+            )
+          );
       }
     }
   }
 
-  public getDiary(id: string): Observable<DiaryStruct | undefined> {
+  public getDiary(_id: string): Observable<DiaryStruct | undefined> {
     switch (config.flavor) {
       case ServiceFlavor.LOCAL: {
-        return of(diaries.find(d => d.id === id));
+        return of(diaries.find(d => d._id === _id));
       }
       case ServiceFlavor.PROD: {
-        return this.httpService.post(this.POST_GET_DIARY_API, { id }).pipe(
+        return this.httpService.post(this.POST_GET_DIARY_API, { _id }).pipe(
           map(data => {
             return data.json();
           }),
@@ -64,18 +68,23 @@ export class DiaryService {
     }
   }
 
-  public postComment(comment: DiaryCommentStruct): Observable<boolean> {
+  public postComment(
+    comment: DiaryCommentStruct,
+    diaryId: string
+  ): Observable<boolean> {
     switch (config.flavor) {
       case ServiceFlavor.LOCAL: {
         return of(true);
       }
       case ServiceFlavor.PROD: {
-        return this.httpService.post(this.POST_DIARY_COMMENT_API, { comment }).pipe(
-          map(data => {
-            return data.json();
-          }),
-          catchError(error => throwError(`Error when post comment: ${error}`))
-        );
+        return this.httpService
+          .post(this.POST_DIARY_COMMENT_API, { comment, id: diaryId })
+          .pipe(
+            map(data => {
+              return data.json();
+            }),
+            catchError(error => throwError(`Error when post comment: ${error}`))
+          );
       }
     }
   }

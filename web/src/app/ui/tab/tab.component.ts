@@ -36,7 +36,7 @@ export class TabComponent implements OnInit, AfterViewInit {
 
   private doOnInit() {
     this.userService.getCachedUserProfile().subscribe(user => {
-      this.user = user;
+      this.user = user.userId ? user : undefined;
     });
   }
 

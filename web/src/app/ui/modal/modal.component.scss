@@ -97,4 +97,8 @@
       margin: 8px 0;
     }
   }
+
+  ::placeholder {
+    color: rgba(240, 240, 240, 0.4);
+  }
 }

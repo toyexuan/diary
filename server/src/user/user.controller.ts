@@ -1,32 +1,32 @@
 import {
   Controller,
   Get,
-  Headers as HttpHeaders,
   Response as HttpResponse,
+  Request as HttpRequest,
   Post,
   Body,
 } from '@nestjs/common';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { AuthService } from 'src/shared/authentication/auth.service';
 import { UserService } from './user.service';
 
-@Controller('user')
+@Controller('user/api')
 export class UserController {
   constructor(
     private authService: AuthService,
     private userService: UserService,
   ) {}
 
-  @Get('api/user-profile')
-  public async getUserProfile(@HttpHeaders() headers) {
-    const sign = headers.get('Jwt');
+  @Get('user-profile')
+  public async getUserProfile(@HttpRequest() req: Request) {
+    const sign = req.headers.jwt as string;
     if (!sign) {
-      return;
+      return {};
     }
 
     const user = await this.authService.validateUserByJwt(sign);
     if (!user) {
-      return;
+      return {};
     }
 
     return {
@@ -35,17 +35,20 @@ export class UserController {
     };
   }
 
-  @Post('/api/user-login')
+  @Post('user-login')
   public async login(
     @HttpResponse() response: Response,
     @Body() body: { password: string },
   ) {
+    await this.userService.createNewUser();
     const user = await this.userService.login(body.password);
     if (!user) {
       response.sendStatus(400);
     } else {
       const signedUser = await this.authService.createJwtToken(body.password);
-      response.set('Jwt', signedUser.access_token);
+      response.set('jwt', signedUser.access_token);
+      user.lastLoginAt = new Date();
+      await user.save();
       const userProfile = {
         name: user.name,
         userId: user._id,

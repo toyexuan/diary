@@ -38,7 +38,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.userService.getCachedUserProfile().subscribe(user => {
-      if (user) {
+      if (user && user.userId) {
         this.showBirth = false;
         this.showPass = true;
       }
@@ -77,14 +77,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
 
   onEnter() {
     if (this.birthday) {
-      this.userService.confirmBirthday(this.birthday).subscribe(success => {
-        if (success) {
-          this.birthday = '';
-          this.onHideBirth();
-        }
-      });
-    } else if (this.password) {
-      this.userService.login(this.password).subscribe(success => {
+      this.userService.login(this.birthday).subscribe(success => {
         if (success) {
           this.show = false;
           this.dataService.sendMessage<boolean>({
@@ -93,6 +86,17 @@ export class ModalComponent implements OnInit, AfterViewInit {
           });
         }
       });
+    } else if (this.password) {
+      this.show = false;
+      // this.userService.login(this.password).subscribe(success => {
+      //   if (success) {
+      //     this.show = false;
+      //     this.dataService.sendMessage<boolean>({
+      //       payload: true,
+      //       type: BROADCAST_DATA_TYPE.USER_LOGGEDIN
+      //     });
+      //   }
+      // });
     }
   }
 }

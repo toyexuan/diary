@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  faLock,
-} from '@fortawesome/free-solid-svg-icons';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { DiaryService } from 'src/app/services/diary.service';
@@ -37,7 +35,7 @@ export class ListComponent implements OnInit {
     });
   }
 
-  private async doOnInit () {
+  private async doOnInit() {
     this.author = this.route.snapshot.paramMap.get('author') as AuthorType;
     if (this.author !== 'he' && this.author !== 'she') {
       return this.router.navigate(['404']);
@@ -53,11 +51,13 @@ export class ListComponent implements OnInit {
   }
 
   formatDate(date: Date) {
-    return `${date.getFullYear()}年${date.getMonth() +
-      1}月${date.getDate()}日`;
+    if (typeof date === 'string') {
+      date = new Date(date);
+    }
+    return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
   }
 
-  gotoDiary(id: string) {
-    this.router.navigate([`diary/${id}`]);
+  gotoDiary(_id: string) {
+    this.router.navigate([`diary/${_id}`]);
   }
 }

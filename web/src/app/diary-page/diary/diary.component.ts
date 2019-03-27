@@ -33,8 +33,8 @@ export class DiaryComponent implements OnInit {
     const diaryId = this.route.snapshot.paramMap.get('diaryId');
     this.diaryService.getDiary(diaryId).subscribe(diary => {
       this.diary = diary;
-      const images: string | string[] = diary.images
-        ? diary.images
+      const images: string | string[] = diary.bgImages
+        ? diary.bgImages
         : diary.author === 'he'
         ? PageDefaultBackgroundImageEnum.hisDiary
         : PageDefaultBackgroundImageEnum.herDiary;
@@ -44,7 +44,7 @@ export class DiaryComponent implements OnInit {
       });
 
       this.userService.getCachedUserProfile().subscribe(user => {
-        if (!this.diary || (this.diary.locked && !user)) {
+        if (!this.diary || (this.diary.locked && !user.userId)) {
           this.router.navigate(['404']);
           return;
         }
@@ -58,6 +58,9 @@ export class DiaryComponent implements OnInit {
   }
 
   formatDate(date: Date) {
+    if (typeof date === 'string') {
+      date = new Date(date);
+    }
     return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
   }
 }

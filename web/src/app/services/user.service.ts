@@ -21,7 +21,7 @@ export class UserService {
   private readonly POST_USER_UPDATE_PASSWORD = '/user/api/update-password';
   private readonly POST_USER_CONFIRM_BIRTHDAY = '/user/api/confirm-birthday';
 
-  private userProfile: Observable<UserProfile | undefined>;
+  private userProfile: Observable<UserProfile | undefined> = undefined;
 
   public getCachedUserProfile(): Observable<UserProfile | undefined> {
     return this.userProfile || this.getUserProfile();
@@ -30,7 +30,7 @@ export class UserService {
   public getUserProfile(): Observable<UserProfile | undefined> {
     switch (config.flavor) {
       case ServiceFlavor.LOCAL: {
-        return this.userProfile;
+        return this.userProfile || new Observable<undefined>();
       }
       case ServiceFlavor.PROD: {
         return (this.userProfile = this.httpService
@@ -39,10 +39,15 @@ export class UserService {
           })
           .pipe(
             map(data => {
-              localStorage.setItem('Jwt', data.headers.get('Jwt'));
+              const token = data.headers.get('Jwt');
+              if (token) {
+                localStorage.setItem('Jwt', token);
+              }
               return data.json();
             }),
-            catchError(error => throwError(`Error when login: ${error}`))
+            catchError(error =>
+              throwError(`Error when getting user profile: ${error}`)
+            )
           ));
       }
     }
