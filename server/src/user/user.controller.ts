@@ -40,7 +40,7 @@ export class UserController {
     @HttpResponse() response: Response,
     @Body() body: { password: string },
   ) {
-    await this.userService.createNewUser();
+    // await this.userService.createNewUser();
     const user = await this.userService.login(body.password);
     if (!user) {
       response.sendStatus(400);

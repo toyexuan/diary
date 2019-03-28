@@ -37,32 +37,29 @@ class Application {
     this.staticFiles = express.static('public', {
       maxAge: this.config.Cache.MaxAge,
     });
-    this.bootstrap()
-      .then(() => {
-        this.app
-          .use(this.log)
-          .use(this.compressor)
-          .use(this.h5history)
-          .use(this.staticFiles);
-
-        this.setViewEngine('ejs');
-        // this.setConnectSession();
-      })
-      .then(() => this.start(this.port))
-      .then(() => {
-        if (module.hot) {
-          module.hot.accept();
-          module.hot.dispose(() => this.app.close());
-        }
-      });
   }
 
-  private async bootstrap() {
+  public async bootstrap() {
     this.app = await NestFactory.create<NestExpressApplication>(AppModule, {
       bodyParser: true,
       cors: true,
       httpsOptions: this.config.SSL,
     });
+
+    this.app
+      .use(this.log)
+      .use(this.compressor)
+      .use(this.h5history)
+      .use(this.staticFiles);
+
+    this.setViewEngine('ejs');
+
+    await this.start(this.port);
+
+    if (module.hot) {
+      module.hot.accept();
+      module.hot.dispose(() => this.app.close());
+    }
   }
 
   private setViewEngine(view: string) {
@@ -94,8 +91,8 @@ class Application {
 
 const commandArgs = new CommandArgvParser();
 const isDevMode = commandArgs.get('dev') || !commandArgs.get('prod');
-const a = new Application(
+new Application(
   isDevMode ? ServerEnvironment.DEV : ServerEnvironment.PROD,
   commandArgs.get('https') as boolean,
   parseInt(commandArgs.get('port') as string, 10),
-);
+).bootstrap();
