@@ -1,5 +1,5 @@
 export const homeData = {
-  content2: [
+  content: [
     '时间是空',
     '回忆是白',
     '想念隐藏在回忆里',
@@ -11,7 +11,7 @@ export const homeData = {
     '想念是空',
     '心情是白'
   ],
-  content: [
+  content2: [
     '他',
     '初次遇见她的时候',
     '她是一个',
