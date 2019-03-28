@@ -10,6 +10,7 @@ import { UserService } from './user/user.service';
 import { DiaryService } from './diary/diary.service';
 import { DiarySchema } from './diary/diary.schema';
 import { CacheMiddleware } from './shared/middlewares/cache.middleware';
+import { AuthMiddleware } from './shared/middlewares/auth.middleware';
 
 @Module({
   imports: [
@@ -25,6 +26,8 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
     consumer
       .apply(CacheMiddleware)
-      .forRoutes(UserController);
+      .forRoutes(UserController)
+      .apply(AuthMiddleware)
+      .forRoutes(DiaryController);
   }
 }

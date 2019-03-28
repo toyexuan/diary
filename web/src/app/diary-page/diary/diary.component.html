@@ -7,7 +7,7 @@
     <span class="spacer"></span>
   </div>
   <div class="diary-body" *ngIf="diary">
-    <app-typer [content]="diary.content" theme="light"></app-typer>
+    <app-typer [content]="diary.content" theme="light" [typeSpeed]="50"></app-typer>
   </div>
   <app-comment *ngIf="diary" [comments]="diary.comments" [diaryId]="diary._id"></app-comment>
 </div>
