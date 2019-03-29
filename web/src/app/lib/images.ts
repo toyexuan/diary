@@ -3,7 +3,9 @@ export const enum PageDefaultBackgroundImageEnum {
   list = './assets/imgs/list_bg.jpg',
   editor = './assets/imgs/diary.jpg',
   hisDiary = './assets/imgs/diary_bg.jpg',
-  herDiary = './assets/imgs/diary_bg.jpg'
+  herDiary = './assets/imgs/diary_bg.jpg',
+  diary = './assets/imgs/diary-view.jpg',
+  pageNotFound = './assets/imgs/404.jpg'
 }
 
 export const SiteLogo = './assets/imgs/home.png';

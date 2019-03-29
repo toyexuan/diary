@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { faLock, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { DiaryService } from 'src/app/services/diary.service';
@@ -18,6 +18,7 @@ export class ListComponent implements OnInit {
   public diaryList: DiaryList[] = [];
   public userProfile: UserProfile;
   public faLockIcon = faLock;
+  public faEditIcon = faEdit;
 
   constructor(
     private diaryService: DiaryService,
@@ -55,6 +56,10 @@ export class ListComponent implements OnInit {
       date = new Date(date);
     }
     return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+  }
+
+  onEdit(_id: string) {
+    this.router.navigate(['editor'], { queryParams: { d: _id } });
   }
 
   gotoDiary(_id: string) {

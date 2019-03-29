@@ -1,4 +1,9 @@
-import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { UserController } from './user/user.controller';
 import { DiaryController } from './diary/diary.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -28,6 +33,9 @@ export class AppModule implements NestModule {
       .apply(CacheMiddleware)
       .forRoutes(UserController)
       .apply(AuthMiddleware)
-      .forRoutes(DiaryController);
+      .forRoutes(
+        { path: 'diary/api/post-comment', method: RequestMethod.POST },
+        { path: 'diary/api/post-diary', method: RequestMethod.POST },
+      );
   }
 }

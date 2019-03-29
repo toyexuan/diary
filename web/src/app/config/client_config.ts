@@ -1,6 +1,5 @@
 import { isDevMode } from '@angular/core';
 
-
 export const enum ServiceFlavor {
   LOCAL,
   PROD
@@ -8,6 +7,6 @@ export const enum ServiceFlavor {
 
 export const config = {
   // flavor: ServiceFlavor.LOCAL,
-  flavor: ServiceFlavor.PROD,
-  // flavor: isInDevMode() ? ServiceFlavor.LOCAL : ServiceFlavor.PROD
+  // flavor: ServiceFlavor.PROD,
+  getFlavor: () => (isDevMode() ? ServiceFlavor.LOCAL : ServiceFlavor.PROD)
 };

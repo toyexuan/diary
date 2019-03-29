@@ -28,9 +28,9 @@ export class UserService {
   }
 
   public getUserProfile(): Observable<UserProfile | undefined> {
-    switch (config.flavor) {
+    switch (config.getFlavor()) {
       case ServiceFlavor.LOCAL: {
-        return this.userProfile || new Observable<undefined>();
+        return this.userProfile || of(undefined);
       }
       case ServiceFlavor.PROD: {
         return (this.userProfile = this.httpService
@@ -54,7 +54,7 @@ export class UserService {
   }
 
   public login(pass: string): Observable<boolean> {
-    switch (config.flavor) {
+    switch (config.getFlavor()) {
       case ServiceFlavor.LOCAL: {
         this.userProfile = of<UserProfile>({
           name: 'he',
@@ -84,7 +84,7 @@ export class UserService {
   }
 
   public updatePassword(password: string): Observable<boolean> {
-    switch (config.flavor) {
+    switch (config.getFlavor()) {
       case ServiceFlavor.LOCAL: {
         return of(true);
       }
@@ -109,7 +109,7 @@ export class UserService {
   }
 
   public confirmBirthday(birthday: string) {
-    switch (config.flavor) {
+    switch (config.getFlavor()) {
       case ServiceFlavor.LOCAL: {
         return of(true);
       }

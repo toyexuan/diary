@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Observable, of, throwError, from } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
@@ -15,7 +15,11 @@ import { diaries } from '../lib/static/diary';
   providedIn: 'root'
 })
 export class DiaryService {
-  constructor(private httpService: Http) {}
+  private headers = new Headers();
+
+  constructor(private httpService: Http) {
+    this.headers.set('Jwt', localStorage.getItem('Jwt'));
+  }
 
   private readonly POST_GET_DIARY_LIST_API = 'diary/api/diary-list';
   private readonly POST_GET_DIARY_API = 'diary/api/get-diary';
@@ -23,7 +27,7 @@ export class DiaryService {
   private readonly POST_DIARY_API = 'diary/api/post-diary';
 
   public getDiaryList(author: AuthorType): Observable<DiaryList[]> {
-    switch (config.flavor) {
+    switch (config.getFlavor()) {
       case ServiceFlavor.LOCAL: {
         return of(
           diaries
@@ -33,6 +37,7 @@ export class DiaryService {
               title: d.title,
               createdAt: new Date(d.createdAt),
               commentsNum: d.comments.length,
+              author: d.author,
               locked: d.locked
             }))
         );
@@ -53,7 +58,7 @@ export class DiaryService {
   }
 
   public getDiary(_id: string): Observable<DiaryStruct | undefined> {
-    switch (config.flavor) {
+    switch (config.getFlavor()) {
       case ServiceFlavor.LOCAL: {
         return of(diaries.find(d => d._id === _id));
       }
@@ -72,13 +77,19 @@ export class DiaryService {
     comment: DiaryCommentStruct,
     diaryId: string
   ): Observable<boolean> {
-    switch (config.flavor) {
+    switch (config.getFlavor()) {
       case ServiceFlavor.LOCAL: {
         return of(true);
       }
       case ServiceFlavor.PROD: {
         return this.httpService
-          .post(this.POST_DIARY_COMMENT_API, { comment, id: diaryId })
+          .post(
+            this.POST_DIARY_COMMENT_API,
+            { comment, id: diaryId },
+            {
+              headers: this.headers
+            }
+          )
           .pipe(
             map(data => {
               return data.json();
@@ -90,17 +101,25 @@ export class DiaryService {
   }
 
   public postDiary(diary: DiaryStruct): Observable<boolean> {
-    switch (config.flavor) {
+    switch (config.getFlavor()) {
       case ServiceFlavor.LOCAL: {
         return of(true);
       }
       case ServiceFlavor.PROD: {
-        return this.httpService.post(this.POST_DIARY_API, { diary }).pipe(
-          map(data => {
-            return data.json();
-          }),
-          catchError(error => throwError(`Error when post a diary: ${error}`))
-        );
+        return this.httpService
+          .post(
+            this.POST_DIARY_API,
+            { diary },
+            {
+              headers: this.headers
+            }
+          )
+          .pipe(
+            map(data => {
+              return data.json();
+            }),
+            catchError(error => throwError(`Error when post a diary: ${error}`))
+          );
       }
     }
   }

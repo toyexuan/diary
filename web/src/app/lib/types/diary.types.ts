@@ -22,6 +22,7 @@ export interface DiaryCommentStruct {
 export interface DiaryList {
   _id: string;
   title: string;
+  author: AuthorType;
   createdAt: Date;
   commentsNum: number;
   locked?: boolean;

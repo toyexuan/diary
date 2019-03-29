@@ -16,7 +16,6 @@
     .diary-list-item {
       cursor: pointer;
       display: flex;
-      justify-content: space-between;
       padding: 8px 0;
       position: relative;
       &:after {
@@ -33,10 +32,15 @@
       &:hover:after {
         width: 100%;
       }
-
-      .lock-icon {
-        margin-left: 8px;
+      .diary-title {
+        display: flex;
+        flex:auto;
+        justify-content: space-between;
       }
+    }
+
+    .icon {
+      margin-left: 8px;
     }
   }
 }

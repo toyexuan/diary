@@ -19,6 +19,11 @@
     ></textarea>
   </div>
   <div class="submit-btn">
+    <span class="lock-diary" (click)="checkPrivate()">
+      <fa-icon [icon]="faSquareIcon" class="check-icon" [ngClass]="{ show: !locked }"></fa-icon>
+      <fa-icon [icon]="faCheckIcon" class="check-icon" [ngClass]="{ show: locked }"></fa-icon>
+      非公开
+    </span>
     <app-button (click)="onSubmit()">保存</app-button>
   </div>
 </div>

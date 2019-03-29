@@ -33,18 +33,16 @@ export class DiaryComponent implements OnInit {
     const diaryId = this.route.snapshot.paramMap.get('diaryId');
     this.diaryService.getDiary(diaryId).subscribe(diary => {
       this.diary = diary;
-      const images: string | string[] = diary.bgImages
+      const images: string | string[] = (diary.bgImages && diary.bgImages.length > 0)
         ? diary.bgImages
-        : diary.author === 'he'
-        ? PageDefaultBackgroundImageEnum.hisDiary
-        : PageDefaultBackgroundImageEnum.herDiary;
+        : PageDefaultBackgroundImageEnum.diary;
       this.dataService.sendMessage<string | string[]>({
         type: BROADCAST_DATA_TYPE.BG_IMAGGE_CHANGE,
         payload: images
       });
 
       this.userService.getCachedUserProfile().subscribe(user => {
-        if (!this.diary || (this.diary.locked && !user.userId)) {
+        if (!this.diary || (this.diary.locked && !user)) {
           this.router.navigate(['404']);
           return;
         }

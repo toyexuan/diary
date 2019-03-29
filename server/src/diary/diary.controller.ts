@@ -15,6 +15,7 @@ export class DiaryController {
       createdAt: diary.createdAt,
       commentsNum: diary.comments.length,
       locked: diary.locked,
+      author: diary.author,
     }));
   }
 

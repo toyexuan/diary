@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import {
@@ -31,7 +31,7 @@ export class DiaryService {
     const diary = await this.diaryModel.findOne({ _id }).exec();
 
     if (!diary) {
-        throw new Error(`Cannot find diary for ${id}`);
+      throw new Error(`Cannot find diary for ${id}`);
     }
 
     diary.comments.push(comment);
@@ -39,7 +39,24 @@ export class DiaryService {
   }
 
   public async postDiary(diary: DiaryStruct) {
+    const { _id } = diary as any;
+    if (_id) {
+      const existDiary = await this.diaryModel
+        .findOne({ _id: Types.ObjectId(_id) })
+        .exec();
+      if (existDiary) {
+        existDiary.content = diary.content;
+        existDiary.locked = diary.locked;
+        existDiary.title = diary.title;
+        existDiary.updatedAt = new Date();
+
+        return await existDiary.save();
+      } else {
+        throw new HttpException('No diary found', 400);
+      }
+    } else {
       const d = new this.diaryModel(diary);
       return await d.save();
+    }
   }
 }

@@ -26,7 +26,7 @@ export class CommentComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getCachedUserProfile().subscribe(userProfile => {
-      this.author = userProfile.userId ? userProfile : undefined;
+      this.author = userProfile;
     });
   }
 

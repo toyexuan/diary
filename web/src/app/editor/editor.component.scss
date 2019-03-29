@@ -11,31 +11,46 @@
     width: 100%;
     font-family: 'Microsoft YaHei', sans-serif;
     transition: border 0.3s;
-    &:focus, &.hasInput {
-        border-color: rgba(240, 240, 240, 0);
+    &:focus,
+    &.hasInput {
+      border-color: rgba(240, 240, 240, 0);
     }
   }
 
   .title-input {
-      margin: 0 16px;
-      input {
-          font-size: 20px;
-          font-weight: 600;
-      }
+    margin: 0 16px;
+    input {
+      font-size: 20px;
+      font-weight: 600;
+    }
   }
   .content-input {
-      margin: 16px;
-      textarea {
-          font-size: 16px;
-      }
+    margin: 16px;
+    textarea {
+      font-size: 16px;
+    }
   }
 
   .submit-btn {
+    display: flex;
+    margin: 0 16px;
+    justify-content: flex-end;
+    .lock-diary {
       display: flex;
-      margin: 0 16px;
-      justify-content: flex-end;
+      align-items: center;
+      font-size: 14px;
+      margin-right: 8px;
+      cursor: pointer;
+      .check-icon {
+        margin-right: 8px;
+        display: none;
+        &.show {
+          display: block;
+        }
+      }
+    }
   }
 }
 ::placeholder {
-    color: rgba(240, 240, 240, 0.9);
+  color: rgba(240, 240, 240, 0.9);
 }
