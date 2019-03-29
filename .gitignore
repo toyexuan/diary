@@ -3,9 +3,13 @@
 # compiled output
 dist/
 build/
+public/
 /tmp
 /out-tsc
 db/
+
+!server/dist/
+!server/public/
 
 # dependencies
 node_modules/
