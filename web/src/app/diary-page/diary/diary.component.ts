@@ -41,17 +41,13 @@ export class DiaryComponent implements OnInit {
         payload: images
       });
 
-      this.userService.getCachedUserProfile().subscribe(user => {
-        if (!this.diary || (this.diary.locked && !user)) {
-          this.router.navigate(['404']);
-          return;
-        }
-      });
-
       this.dataService.sendMessage<string>({
         type: BROADCAST_DATA_TYPE.BGM_CHANGE,
         payload: this.diary.bgm || './assets/audio/dawn.ogg'
       });
+    },
+    () => {
+      this.router.navigate(['404']);
     });
   }
 

@@ -1,10 +1,12 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Response as HttpResponse, Request as HttpRequest } from '@nestjs/common';
 import { AuthorType, DiaryCommentStruct, DiaryStruct } from './diary.schema.interface';
 import { DiaryService } from './diary.service';
+import { Request, Response } from 'express';
+import { AuthService } from '../shared/authentication/auth.service';
 
 @Controller('diary/api')
 export class DiaryController {
-  constructor(private diaryService: DiaryService) {}
+  constructor(private diaryService: DiaryService, private authService: AuthService) {}
 
   @Post('diary-list')
   public async getDiaryListApi(@Body() body: { author: AuthorType }) {
@@ -20,9 +22,17 @@ export class DiaryController {
   }
 
   @Post('get-diary')
-  public async getDiry(@Body() body: { _id: string }) {
-    const x = await this.diaryService.getDiary(body._id);
-    return x;
+  public async getDiry(@HttpResponse() res: Response, @HttpRequest() req: Request, @Body() body: { _id: string }) {
+    const diary = await this.diaryService.getDiary(body._id);
+    if (diary.locked) {
+      const valid = await this.authService.validateUserByJwt(req.headers.jwt as string);
+      if (valid) {
+        return diary;
+      } else {
+        res.sendStatus(400);
+      }
+    }
+    return diary;
   }
 
   @Post('post-comment')
