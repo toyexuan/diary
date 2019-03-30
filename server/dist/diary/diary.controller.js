@@ -22,9 +22,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const diary_service_1 = require("./diary.service");
+const auth_service_1 = require("../shared/authentication/auth.service");
 let DiaryController = class DiaryController {
-    constructor(diaryService) {
+    constructor(diaryService, authService) {
         this.diaryService = diaryService;
+        this.authService = authService;
     }
     getDiaryListApi(body) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -39,10 +41,23 @@ let DiaryController = class DiaryController {
             }));
         });
     }
-    getDiry(body) {
+    getDiry(res, req, body) {
         return __awaiter(this, void 0, void 0, function* () {
-            const x = yield this.diaryService.getDiary(body._id);
-            return x;
+            const diary = yield this.diaryService.getDiary(body._id);
+            if (diary.locked) {
+                const token = req.headers.jwt;
+                if (!token) {
+                    return res.sendStatus(400);
+                }
+                const valid = yield this.authService.validateUserByJwt(token);
+                if (valid) {
+                    return diary;
+                }
+                else {
+                    res.sendStatus(400);
+                }
+            }
+            return diary;
         });
     }
     postComment(body) {
@@ -65,9 +80,9 @@ __decorate([
 ], DiaryController.prototype, "getDiaryListApi", null);
 __decorate([
     common_1.Post('get-diary'),
-    __param(0, common_1.Body()),
+    __param(0, common_1.Response()), __param(1, common_1.Request()), __param(2, common_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
 ], DiaryController.prototype, "getDiry", null);
 __decorate([
@@ -86,7 +101,7 @@ __decorate([
 ], DiaryController.prototype, "postDiary", null);
 DiaryController = __decorate([
     common_1.Controller('diary/api'),
-    __metadata("design:paramtypes", [diary_service_1.DiaryService])
+    __metadata("design:paramtypes", [diary_service_1.DiaryService, auth_service_1.AuthService])
 ], DiaryController);
 exports.DiaryController = DiaryController;
 //# sourceMappingURL=diary.controller.js.map
