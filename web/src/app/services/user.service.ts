@@ -43,7 +43,8 @@ export class UserService {
               if (token) {
                 localStorage.setItem('Jwt', token);
               }
-              return data.json();
+              const res = data.json();
+              return Object.keys(res).length > 0 ? res : undefined;
             }),
             catchError(error =>
               throwError(`Error when getting user profile: ${error}`)

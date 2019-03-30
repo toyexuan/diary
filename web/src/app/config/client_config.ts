@@ -6,7 +6,7 @@ export const enum ServiceFlavor {
 }
 
 export const config = {
-  // flavor: ServiceFlavor.LOCAL,
-  // flavor: ServiceFlavor.PROD,
+  // getFlavor: () => ServiceFlavor.LOCAL,
+  // getFlavor: () => ServiceFlavor.PROD,
   getFlavor: () => (isDevMode() ? ServiceFlavor.LOCAL : ServiceFlavor.PROD)
 };
