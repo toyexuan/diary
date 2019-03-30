@@ -63,11 +63,20 @@ export class DiaryService {
         return of(diaries.find(d => d._id === _id));
       }
       case ServiceFlavor.PROD: {
-        return this.httpService.post(this.POST_GET_DIARY_API, { _id }).pipe(
-          map(data => {
-            return data.json();
-          })
-        );
+        return this.httpService
+          .post(
+            this.POST_GET_DIARY_API,
+            { _id },
+            {
+              headers: this.headers
+            }
+          )
+          .pipe(
+            map(data => {
+              return data.json();
+            }),
+            catchError(error => throwError(`Error when get diary: ${error}`))
+          );
       }
     }
   }

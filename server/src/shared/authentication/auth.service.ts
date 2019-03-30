@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   async validateUserByJwt(signedUser: string): Promise<UserInterface> {
-    const dob = (jwt.verify(signedUser, this.secretOrKey) as { data: string}).data;
+    const dob = (jwt.verify(signedUser, this.secretOrKey) as { data: string }).data;
     const user = await this.userModel.findOne({ dob }).exec();
     return user;
   }
