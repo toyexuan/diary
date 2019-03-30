@@ -25,7 +25,11 @@ export class DiaryController {
   public async getDiry(@HttpResponse() res: Response, @HttpRequest() req: Request, @Body() body: { _id: string }) {
     const diary = await this.diaryService.getDiary(body._id);
     if (diary.locked) {
-      const valid = await this.authService.validateUserByJwt(req.headers.jwt as string);
+      const token = req.headers.jwt as string;
+      if (!token) {
+        return res.sendStatus(400);
+      }
+      const valid = await this.authService.validateUserByJwt(token);
       if (valid) {
         return diary;
       } else {
