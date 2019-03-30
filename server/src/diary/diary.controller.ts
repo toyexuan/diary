@@ -31,12 +31,12 @@ export class DiaryController {
       }
       const valid = await this.authService.validateUserByJwt(token);
       if (valid) {
-        return diary;
+        return res.send(diary);
       } else {
-        res.sendStatus(400);
+        return res.sendStatus(400);
       }
     }
-    return diary;
+    return res.send(diary);
   }
 
   @Post('post-comment')
