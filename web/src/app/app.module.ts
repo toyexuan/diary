@@ -15,6 +15,8 @@ import { ScrollerComponent } from './ui/scroller/scroller.component';
 import { SharesModule } from './diary-page/shares/shares.module';
 import { ModalComponent } from './ui/modal/modal.component';
 import { EditorComponent } from './editor/editor.component';
+import { ValentineComponent } from './valentine/valentine.component';
+import { ScriptComponent } from './valentine/script/script.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +27,8 @@ import { EditorComponent } from './editor/editor.component';
     ScrollerComponent,
     ModalComponent,
     EditorComponent,
+    ValentineComponent,
+    ScriptComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,92 @@
+.app {
+  height: 100vh;
+  width: 100vw;
+  background: rgb(254, 236, 236);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+canvas {
+  width: 500px !important;
+  height: 400px !important;
+  top: calc(50vh - 200px);
+  position: fixed;
+}
+
+#one {
+  left: 40%;
+  transition: transform 30s, opacity 3s ease-in-out;
+}
+
+#two {
+  position: fixed;
+  left: 80%;
+  transition: transform 30s cubic-bezier(0, -0.11, 0.25, 0.82),
+    opacity 3s ease-in-out;
+}
+
+.moved[id="two"] {
+  transform: translateX(calc(-120% - 250px)) !important;
+}
+.moved[id="one"] {
+  transform: translateX(-250px) !important;
+}
+
+.topScript {
+  margin: auto 48px;
+  font-family: "微软雅黑";
+  font-size: 48px;
+  color: rgba(255, 70, 70, 0.6);
+  width: 100%;
+  text-align: center;
+}
+
+#canvas {
+  position: fixed;
+  z-index: 2;
+  top: 150px;
+  left: calc(50% - 250px);
+  opacity: 1;
+  transition: opacity 3s ease-in-out;
+}
+
+.fadeIn {
+  animation: fadeIn 3s ease-in-out;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

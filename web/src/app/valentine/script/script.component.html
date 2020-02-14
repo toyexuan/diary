@@ -1,0 +1,8 @@
+<div [ngClass]="ngClass">
+  <div *ngIf="variant === 'scroll'">
+    <span class="scrollContent" #scollContent></span>
+  </div>
+  <div *ngIf="variant === 'typing'">
+    <span class="typingContent" #typingContent></span>
+  </div>
+</div>

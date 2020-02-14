@@ -1,0 +1,9 @@
+<div class="app">
+  <canvas id="canvas" width="600" height="600"></canvas>
+  <app-script [variant]="'scroll'" [content]="textContent" [ngClass]="['topScript']" hideAfterShowing></app-script>
+<canvas id="one" #scatter [ngClass]="{'moved': enableMove }"></canvas>
+<canvas id="two" #scatter2 [ngClass]="{'moved': enableMove }"></canvas>
+<audio autoplay #bgm>
+  <source src="./assets/audio/bgm.ogg" type="audio/ogg" />
+</audio>
+</div>

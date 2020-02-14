@@ -7,6 +7,7 @@ import { DiaryComponent } from './diary-page/diary/diary.component';
 import { SharesModule } from './diary-page/shares/shares.module';
 import { ListComponent } from './diary-page/list/list.component';
 import { EditorComponent } from './editor/editor.component';
+import { ValentineComponent } from './valentine/valentine.component';
 
 const routes: Routes = [
   {
@@ -23,8 +24,8 @@ const routes: Routes = [
     component: EditorComponent
   },
   {
-    path: '404',
-    component: PageNotFoundComponent
+    path: 'valentine',
+    component: ValentineComponent
   },
   {
     path: ':author',
@@ -37,7 +38,11 @@ const routes: Routes = [
   {
     path: '**',
     component: PageNotFoundComponent
-  }
+  },
+  {
+    path: '404',
+    component: PageNotFoundComponent
+  },
 ];
 
 @NgModule({

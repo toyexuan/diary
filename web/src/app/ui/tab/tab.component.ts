@@ -68,4 +68,7 @@ export class TabComponent implements OnInit, AfterViewInit {
   onClickEdit() {
     this.router.navigate(['editor']);
   }
+  onClickValentine() {
+    this.router.navigate(['valentine']);
+  }
 }

@@ -11,6 +11,9 @@
         <img [src]="herAvatar" class="avatar" />
         <span class="nav-item-title">她的日记</span>
       </li>
+      <li class="nav-item" (click)="onClickValentine()">
+        开始的地方
+      </li>
       <span class="spacer"></span>
       <li class="nav-item" (click)="onClickLock()" *ngIf="!user">
         <fa-icon [icon]="faLockIcon"></fa-icon>
