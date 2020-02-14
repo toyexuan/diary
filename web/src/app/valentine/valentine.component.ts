@@ -85,7 +85,7 @@ export class ValentineComponent implements AfterViewInit, OnInit {
   };
 
   private chartOptions: Chart.ChartOptions;
-  private enableMove = false;
+  public enableMove = false;
 
   private heartAbove(x: number) {
     return Math.sqrt(2 * Math.abs(x) - x * x);
