@@ -28,7 +28,7 @@
     "connect-history-api-fallback": "^1.6.0",
     "connect-mongo": "^2.0.3",
     "ejs": "^2.6.1",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.19",
